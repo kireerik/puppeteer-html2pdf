@@ -22,8 +22,14 @@ const handleNextTask = async () => {
 , generatePDF = async (htmlPath, pdfPath, format) => {
 	if (ready) {
 		ready = false
+
 		await page.goto('file:///' + path.resolve(htmlPath).split(path.sep).join('/'))
+
+		if (typeof pdfPath == 'function')
+			pdfPath = await pdfPath(page)
+
 		await page.pdf({path: pdfPath, format: format || 'Letter'})
+
 		ready = true
 		handleNextTask()
 	} else
