@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer')
+const launch = require('tiny-puppeteer')
 , path = require('path')
 
 var browser, page, ready = false, closeable = false, tasks = []
@@ -40,7 +40,7 @@ const handleNextTask = async () => {
 }
 
 (async () => {
-	browser = await puppeteer.launch()
+	browser = await launch()
 	page = await browser.newPage()
 	ready = true
 	handleNextTask()
